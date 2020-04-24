@@ -35,7 +35,7 @@
 
     methods: {
       toggleNav() {
-        this.$store.commit("updateNaveVisibilty", !this.showNave);
+        this.$store.commit("admin/updateNaveVisibilty", !this.showNave);
       }
     },
 
