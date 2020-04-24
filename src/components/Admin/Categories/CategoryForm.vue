@@ -49,22 +49,28 @@ export default {
   //         id: this.selectedCategory.id
   //       })
   //   },
-  //   submit() {
-  //     this.loading = true;
-  //     const callMethod = this.isEditMode ? 'editCategory' : 'addCategory';
-  //       this[callMethod]().then(() => {
-  //         this.categoryName = null;
-  //         this.$emit("cancelForm");
-  //         this.loading = false;
-  //       });
-  //   },
+    submit() {
+      this.loading = true;
+      this.$store.dispatch("admin/submitCategoryForm", {
+        name: this.categoryName
+      }).then(() => {
+        this.categoryName = null;
+        this.$emit("cancelForm");
+        this.loading = false;
+      });
+      // const callMethod = this.isEditMode ? 'editCategory' : 'addCategory';
+      //   this[callMethod]().then(() => {
+      //     this.categoryName = null;
+      //     this.$emit("cancelForm");
+      //   });
+    },
   //   fillFormData(){
   //     this.categoryName = this.selectedCategory.name;
   //   }
   },
-  // mounted(){
-  //   this.isEditMode && this.fillFormData()
-  // }
+  mounted(){
+    // this.isEditMode && this.fillFormData()
+  }
 };
 </script>
 

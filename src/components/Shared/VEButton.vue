@@ -2,7 +2,7 @@
   <button
     :type="type"
     :disabled="disabled"
-    :class="['ve-btn', `ve-btn-${color}`]"
+    :class="['ve-btn', `ve-btn-${color}`, `ve-btn-${size}`]"
     @click="$emit('click')"
   >
     <slot v-if="!loading"></slot>
@@ -35,6 +35,15 @@ export default {
         return ["default", "success", "error", "info"].indexOf(value) !== -1;
       }
     },
+    size: {
+      type: String,
+      required: false,
+      default: "default",
+      validator: function(value) {
+        // The value must match one of these strings
+        return ["default", "small", "larg"].indexOf(value) !== -1;
+      }
+    },
     disabled: {
       type: Boolean,
       required: false,
@@ -51,6 +60,7 @@ export default {
 
 <style lang="scss" scoped>
 .ve-btn {
+  margin-right: 5px;
   border: none;
   background: #eee;
   padding: 8px 16px;
@@ -70,6 +80,18 @@ export default {
   &-info {
     background: #29b6f6;
     color: #fff;
+  }
+  &-small{
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;
+  }
+  &-larg{
+    padding: .5rem 1rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: .3rem;
   }
   &[disabled] {
     opacity: 0.5;
