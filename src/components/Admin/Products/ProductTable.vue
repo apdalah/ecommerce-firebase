@@ -5,18 +5,22 @@
         <tr>
           <th>#</th>
           <th>Name</th>
+          <th>Price</th>
+          <th>Image</th>
           <th>Control</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(category, index) in categories" :key="category.id">
+        <tr v-for="(product, index) in products" :key="product.id">
           <td>{{ index + 1 }}</td>
-          <td>{{ category.name }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.price }}</td>
+          <td><img style="width:100px; height:50px;" :src="product.imageUrl" alt=""></td>
           <td>
-            <ve-button color="info" size="small" @click="$emit('editCategory', category)" >
+            <ve-button color="info" size="small" @click="$emit('editProduct', product)" >
             Edit
             </ve-button>
-            <ve-button color="error" size="small" @click="$emit('deleteCategory', category.id)" >
+            <ve-button color="error" size="small" @click="$emit('deleteProduct', product.id)" >
             Delete
             </ve-button>
           </td>
@@ -29,7 +33,7 @@
 
 <script>
 export default {
-  props: ["categories"],
+  props: ["products"],
 };
 </script>
 

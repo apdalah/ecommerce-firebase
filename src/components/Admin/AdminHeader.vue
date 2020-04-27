@@ -35,13 +35,13 @@
 
     methods: {
       toggleNav() {
-        this.$store.commit("admin/updateNaveVisibilty", !this.showNave);
+        this.$store.commit("AdminStore/updateNaveVisibilty", !this.showNave);
       }
     },
 
     computed: {
       showNave() {
-        return this.$store.state.admin.showNave;
+        return this.$store.state.AdminStore.showNave;
       },
     },
 
