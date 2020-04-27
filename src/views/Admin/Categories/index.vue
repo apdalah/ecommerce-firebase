@@ -22,14 +22,13 @@
     </div>
 
     <ve-modal :show="showModal" @close="hideModalHandler" :width="800">
-      <category-form @cancelForm="hideModalHandler"></category-form>
-      <!-- <category-form @cancelForm="hideModalHandler" :selected-category="selectedCategory"></category-form> -->
+      <category-form @cancelForm="hideModalHandler" :category="selectedCategory"></category-form>
     </ve-modal>
     <delete-modal
       :show="showDeleteModal"
       @close="hideModalHandler"
       :loading="deleteLoading"
-      @deleteCategory="deleteCategory"
+      @deleteItem="deleteCategory"
     >
       <template #ConfirmationModalTitle>Are U sure ?</template>
     </delete-modal>
@@ -43,7 +42,7 @@
 
 <script>
 import CategoryForm from "@/components/Admin/Categories/CategoryForm";
-import DeleteModal from "@/components/Admin/Categories/DeleteModal";
+import DeleteModal from "@/components/Admin/DeleteModal";
 import CategoryTable from "@/components/Admin/Categories/CategoryTable";
 import HeaderSection from "@/components/Admin/HeaderSection.vue";
 export default {
@@ -60,24 +59,24 @@ export default {
       selectedCategoryToDelete: null,
       deleteLoading: false,
       loading: false,
-      // selectedCategory: null,
+      selectedCategory: null,
     };
   },
   computed: {
     categories() {
-      return this.$store.state.admin.categories;
+      return this.$store.state.CategoryStore.categories;
     }
   },
   mounted() {
     this.loading = true;
-    this.$store.dispatch("admin/getCategories").finally( () => {
+    this.$store.dispatch("CategoryStore/getCategories").finally( () => {
       this.loading = false;
     });
   },
   methods: {
-    showModalHandler() {
+    showModalHandler(category) {
       this.showModal = true;
-      // this.selectedCategory = category;
+      this.selectedCategory = category;
     },
     hideModalHandler() {
       this.showModal = false;
@@ -91,7 +90,7 @@ export default {
     deleteCategory() {
       this.deleteLoading = true;
       this.$store
-        .dispatch("admin/deleteCategory", this.selectedCategoryToDelete)
+        .dispatch("CategoryStore/deleteCategory", this.selectedCategoryToDelete)
         .then(() => {
           this.hideModalHandler();
           this.selectedCategoryToDelete = null;

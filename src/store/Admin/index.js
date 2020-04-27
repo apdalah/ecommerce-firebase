@@ -1,14 +1,20 @@
-import state from "./state";
-import mutations from "./mutations";
-import actions from "./actions";
-
 export default {
   namespaced: true,
 
-  state,
+  state: {
 
-  mutations, 
+  	showNave: true,
 
-  actions
+  },
+
+  mutations: {
+  	
+  	updateNaveVisibilty(state, naveState) {
+  		state.showNave = naveState;
+  	},
+
+  }, 
+
+  actions: {},
 
 };

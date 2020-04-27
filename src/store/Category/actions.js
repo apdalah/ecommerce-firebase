@@ -1,7 +1,7 @@
 // import my firestore functions
 import {
   addToCollection,
-  // updateDocumnet,
+  updateDocumnet,
   getCollection,
   deleteFromCollection
 } from "@/firebase/functions/firestore.js";
@@ -16,6 +16,20 @@ export default {
       });
   	},
 
+    submitEditCategoryForm({ commit, state }, {category, id}) {
+      return updateDocumnet(CATEGORIES, id, category).then(() => {
+        commit(
+          "updateCategories",
+          state.categories.map( cat => {
+            if(cat.id == id){
+              return Object.assign({}, cat, category)
+            }
+            return cat;
+          })
+        );
+      });
+    },
+  
   	getCategories({commit}) {
   		getCollection(CATEGORIES).then(querySnapshot => {
   			let categories = querySnapshot.docs.map(queryDoc => Object.assign({}, queryDoc.data(), {id: queryDoc.id}));

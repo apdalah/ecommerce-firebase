@@ -7,7 +7,7 @@
         :disabled="loading"
         :loading="loading"
         color="error"
-        @click="deleteCategory"
+        @click="deleteItem"
       >Yes</ve-button>
       <ve-button @click="close">No</ve-button>
     </div>
@@ -21,8 +21,8 @@ export default {
     close() {
       this.$emit("close");
     },
-    deleteCategory() {
-      this.$emit("deleteCategory");
+    deleteItem() {
+      this.$emit("deleteItem");
     }
   }
 };

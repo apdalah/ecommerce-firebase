@@ -19,57 +19,50 @@
 
 <script>
 export default {
-  // props: ['selectedCategory'],
+  props: ['category'],
   data() {
     return {
       categoryName: null,
       loading: false
     };
   },
-  // computed: {
-  //   isEditMode(){
-  //     return !!this.selectedCategory;
-  //   }
-  // },
+  computed: {
+    isEditMode(){
+      return !!this.category;
+    }
+  },
   methods: {
     cancel() {
       this.categoryName = null;
       this.$emit("cancelForm");
     },
-  //   addCategory(){
-  //     return this.$store
-  //       .dispatch("AdminStore/submitCategoryForm", {
-  //         name: this.categoryName
-  //       });
-  //   },
-  //   editCategory(){
-  //     return this.$store
-  //       .dispatch("AdminStore/submitEditCategoryForm", {
-  //         category: { name: this.categoryName },
-  //         id: this.selectedCategory.id
-  //       })
-  //   },
+    addCategory(){
+      return this.$store
+        .dispatch("CategoryStore/submitCategoryForm", {
+          name: this.categoryName
+        });
+    },
+    editCategory(){
+      return this.$store
+        .dispatch("CategoryStore/submitEditCategoryForm", {
+          category: { name: this.categoryName },
+          id: this.category.id
+        })
+    },
     submit() {
       this.loading = true;
-      this.$store.dispatch("admin/submitCategoryForm", {
-        name: this.categoryName
-      }).then(() => {
-        this.categoryName = null;
-        this.$emit("cancelForm");
-        this.loading = false;
-      });
-      // const callMethod = this.isEditMode ? 'editCategory' : 'addCategory';
-      //   this[callMethod]().then(() => {
-      //     this.categoryName = null;
-      //     this.$emit("cancelForm");
-      //   });
+      const callMethod = this.isEditMode ? 'editCategory' : 'addCategory';
+        this[callMethod]().then(() => {
+          this.categoryName = null;
+          this.$emit("cancelForm");
+        });
     },
-  //   fillFormData(){
-  //     this.categoryName = this.selectedCategory.name;
-  //   }
+    fillFormData(){
+      this.categoryName = this.category.name;
+    }
   },
   mounted(){
-    // this.isEditMode && this.fillFormData()
+    this.isEditMode && this.fillFormData()
   }
 };
 </script>

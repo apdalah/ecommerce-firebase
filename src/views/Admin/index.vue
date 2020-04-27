@@ -22,7 +22,7 @@
 
     computed: {
       showNave() {
-        return this.$store.state.admin.showNave;
+        return this.$store.state.AdminStore.showNave;
       }
     },
 
